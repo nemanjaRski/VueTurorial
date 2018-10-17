@@ -1,5 +1,5 @@
 <template>
-  <v-app id="app">
+  <v-app>
     <router-view/>
   </v-app>
 </template>
@@ -8,10 +8,10 @@
 export default {
   name: 'App',
   mounted() {
-    if(this.$store.state.session.users.length == 0)
-      this.$router.replace({ name: "StartPage" });
+    if(this.$store.state.session.users.length === 0)
+      this.$router.replace({ name: "StartPageComponent" });
     else
-      this.$router.replace({ name: "MainPage" });
+      this.$router.replace({ name: "MainPageComponent" });
   },
 }
 </script>
@@ -23,6 +23,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

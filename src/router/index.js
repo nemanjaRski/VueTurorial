@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Router from 'vue-router'
-import Login from "@/components/Login"
-import MainPage from "@/components/MainPage"
-import StartPage from "@/components/StartPage"
-import Register from "@/components/RegisterPage"
+import LoginComponent from "@/components/LoginComponent"
+import MainPageComponent from "@/components/MainPageComponent"
+import StartPageComponent from "@/components/StartPageComponent"
+import RegisterComponent from "@/components/RegisterComponent"
 import HelloWorld from "@/components/HelloWorld"
 
 Vue.use(Router)
@@ -16,8 +16,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'StartPage',
-      component: StartPage
+      name: 'StartPageComponent',
+      component: StartPageComponent
     },
     {
       path: '/helloworld',
@@ -26,18 +26,18 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'Login',
-      component: Login
+      name: 'LoginComponent',
+      component: LoginComponent
     },
     {
       path: '/register',
-      name: 'Register',
-      component: Register
+      name: 'RegisterComponent',
+      component: RegisterComponent
     },
     {
         path: "/secure",
-        name: "MainPage",
-        component: MainPage
+        name: "MainPageComponent",
+        component: MainPageComponent
     }
   ]
 })

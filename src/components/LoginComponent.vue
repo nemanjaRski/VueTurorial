@@ -2,27 +2,30 @@
   <div class="login">
     <img src="../assets/LoginIcon.jpg">
     <br/>
-    <input placeholder="Username" type="text" v-model="input.username"/>
-    <input placeholder="Password" type="password" v-model="input.password"/>
-    <button v-on:click="login()">Login</button>
+    <v-flex xs12 sm4 offset-sm4>
+        <v-text-field label="Username" type="text" v-model="input.username"/>
+    </v-flex>
+    <v-flex xs12 sm4 offset-sm4>
+        <v-text-field label="Password" type="password" v-model="input.password"/>
+    </v-flex>
+    <v-btn v-on:click="login()">Login</v-btn>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Login',
+  name: 'LoginComponent',
   data() {
-            return {
-                input: {
-                    username: "",
-                    password: ""
-                }
-            }
-        },
+      return {
+          input: {
+              username: "",
+              password: ""
+          }
+      }
+    },
   mounted() {
-    console.log(this.$store.state.session.users.length)
     if(this.$store.state.session.users.length != 0)
-      this.$router.replace({ name: "MainPage" });
+      this.$router.replace({ name: "MainPageComponent" });
   },
   methods:
   {
@@ -35,7 +38,7 @@ export default {
             }
             if(this.$store.getters.userExists(user)){
                 this.$store.commit('loginUser',user)
-                this.$router.replace({ name: "MainPage" });
+                this.$router.replace({ name: "MainPageComponent" });
             } else {
                 console.log("The username and / or password is incorrect");
             }
@@ -47,20 +50,3 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
