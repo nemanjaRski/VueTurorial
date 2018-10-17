@@ -38,7 +38,7 @@ export default {
             }
             if(this.$store.getters.userExists(user)){
                 this.$store.commit('loginUser',user)
-                this.$router.replace({ name: "MainPageComponent" });
+                this.$router.push({ name: "MainPageComponent" });
             } else {
                 console.log("The username and / or password is incorrect");
             }

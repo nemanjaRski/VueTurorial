@@ -13,10 +13,10 @@ export default {
   methods:
   {
     login() {
-        this.$router.replace({ name: "LoginComponent" });
+        this.$router.push({ name: "LoginComponent" });
     },
     register() {
-        this.$router.replace({ name: "RegisterComponent" });
+        this.$router.push({ name: "RegisterComponent" });
     }
   },
 }

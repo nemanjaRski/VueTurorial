@@ -42,7 +42,7 @@ export default {
               password : this.input.password
             }
             this.$store.commit('registerUser',user)
-            this.$router.replace({ name: "LoginComponent" });
+            this.$router.push({ name: "LoginComponent" });
           } else {
             console.log("Passwords must match")
           }
