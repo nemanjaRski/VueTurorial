@@ -30,7 +30,7 @@ export default {
   methods:
   {
     login() {
-        if(this.input.username != "" && this.input.password != "") {
+        if(this.input.username !== "" && this.input.password !== "") {
             const user =
             {
               username : this.input.username,

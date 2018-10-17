@@ -28,7 +28,7 @@ export default {
       }
     },
   mounted() {
-    if(this.$store.state.session.users.length != 0)
+    if(this.$store.state.session.users.length !== 0)
       this.$router.replace({ name: "MainPageComponent" });
   },
   methods:
