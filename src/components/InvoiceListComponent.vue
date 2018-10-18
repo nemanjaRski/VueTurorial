@@ -66,13 +66,6 @@ export default {
       }
     }
   },
-  computed:
-  {
-    totalItems()
-    {
-      return this.invoices.data.length
-    }
-  },
   methods:
   {
     duplicateInvoice(invoice)
