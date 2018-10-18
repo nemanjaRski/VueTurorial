@@ -84,11 +84,9 @@ export default {
       this.$store.commit('deleteInvoice', index)
     },
     filterByNumber: _.debounce(function() {
-      console.log(this.invoices.filter)
-      console.log(this.$store.state.invoices.invoices.length)
       if(this.invoices.filter !== '')
       {
-        this.invoices.data = this.$store.state.invoices.invoices.filter((value) => value.number === parseInt(this.invoices.filter))
+        this.invoices.data = this.$store.state.invoices.invoices.filter((value) => (value.number+'').includes(this.invoices.filter+''))
       }
       else
       {
