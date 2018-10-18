@@ -8,7 +8,26 @@
         <v-text-field label="Description" type="text" v-model="input.description"/>
     </v-flex>
      <v-flex xs12 sm4 offset-sm4>
-        <v-text-field label="Date" type="date" v-model="input.date"/>
+        <v-menu
+          ref="menu"
+          :close-on-content-click="false"
+          v-model="input.menu"
+          :nudge-right="40"
+          :return-value.sync="input.date"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          min-width="290px">
+          <v-text-field
+            slot="activator"
+            v-model="input.date"
+            label="Date"
+            prepend-icon="event"
+            readonly
+          ></v-text-field>
+          <v-date-picker v-model="input.date" @input="$refs.menu.save(input.date)"></v-date-picker>
+        </v-menu>
     </v-flex>
      <v-flex xs12 sm4 offset-sm4>
         <v-text-field label="Amount" type="number" step="any" min="0" v-model="input.amount"/>
@@ -26,7 +45,8 @@ export default {
                 number: "",
                 description: "",
                 date: "",
-                amount: ""
+                amount: "",
+                menu: false
             }
         }
     },
@@ -38,15 +58,25 @@ export default {
   {
     isValidInput: function()
     {
+      const errorsOutput = []
       if(this.input.number === '' || parseInt(this.input.number) <= 0)
-        return false;
+      {
+        errorsOutput.push("Invalid entry in number field")
+      }
       if(this.input.description === '')
-        return false;
+      {
+        errorsOutput.push("Invalid entry in description field")
+      }
       if(this.input.date === '')
-        return false;
-      if(this.input.amount === '' || parseFloat(this.input.amount) <= 0)
-        return false;
-      return true;
+      {
+        errorsOutput.push("Invalid entry in date field")
+      }
+      if(this.input.amount === '' || parseFloat(this.input.amount) < 0)
+      {
+        errorsOutput.push("Invalid entry in amount field")
+      }
+      console.log(errorsOutput.join(';'))
+      return errorsOutput.length === 0;
     }
   },
   methods:

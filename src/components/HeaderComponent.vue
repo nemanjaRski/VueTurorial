@@ -1,11 +1,11 @@
 <template>
     <v-card>
         <v-toolbar color="cyan" dark>
-            <v-btn v-on:click="returnToStartPage()" color="success">Home</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn v-if="canDisplayButton()" v-on:click="goToInvoicePage()" color="warning">Invoices</v-btn>
-            <v-spacer></v-spacer>
-            <v-btn v-if="canDisplayButton()" v-on:click="logout()" color="error">Logout</v-btn>
+            <v-layout align-center justify-space-around row fill-height>
+                <v-btn v-on:click="returnToStartPage()" color="success">Home</v-btn>
+                <v-btn v-if="canDisplayButton()" v-on:click="goToInvoicePage()" color="warning">Invoices</v-btn>
+                <v-btn v-if="canDisplayButton()" v-on:click="logout()" color="error">Logout</v-btn>
+            </v-layout>
         </v-toolbar>
     </v-card>
 </template>

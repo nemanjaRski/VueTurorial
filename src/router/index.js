@@ -6,7 +6,6 @@ import LoginComponent from "@/components/LoginComponent"
 import MainPageComponent from "@/components/MainPageComponent"
 import StartPageComponent from "@/components/StartPageComponent"
 import RegisterComponent from "@/components/RegisterComponent"
-import HelloWorld from "@/components/HelloWorld"
 
 Vue.use(Router)
 Vue.use(Vuex)
@@ -18,11 +17,6 @@ export default new Router({
       path: '/',
       name: 'StartPageComponent',
       component: StartPageComponent
-    },
-    {
-      path: '/helloworld',
-      name: 'HelloWorld',
-      component: HelloWorld
     },
     {
       path: '/login',

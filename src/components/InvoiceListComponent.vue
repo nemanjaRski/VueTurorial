@@ -11,15 +11,18 @@
     <v-btn v-on:click="filterByNumber()">Filter</v-btn>
     <v-btn v-on:click="resetFilter()">Reset</v-btn>
     <br/>
-    <v-container fluid grid-list-md>
-      <v-data-iterator :items="invoices.data" 
-      :rows-per-page-items="invoices.rowsPerPageItems" 
-      :pagination.sync="invoices.pagination" content-tag="v-layout" row wrap>
-        <v-flex slot="item" slot-scope="props" xs12 sm6 md4 lg3>
-          <v-card>
-            <v-card-title>
-            <h4>Invoice#{{ props.item.number }}</h4>
-            <v-menu offset-y>
+    <v-data-table
+      :headers="invoices.headers"
+      :items="invoices.data"
+      hide-actions
+      class="elevation-1">
+      <template slot="items" slot-scope="props">
+        <td>{{ props.item.number }}</td>
+        <td>{{ props.item.description }}</td>
+        <td>{{ props.item.date }}</td>
+        <td>{{ props.item.amount }}</td>
+        <td>
+          <v-menu offset-y>
               <v-btn slot="activator" color="primary" icon>
                   <v-icon>list</v-icon>
               </v-btn>
@@ -32,26 +35,9 @@
                 </v-list-tile>
               </v-list>
             </v-menu>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-list dense>
-              <v-list-tile>
-                <v-list-tile-content>Description:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.description }}</v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-content>Date:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.date }}</v-list-tile-content>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-content>Amount:</v-list-tile-content>
-                <v-list-tile-content class="align-end">{{ props.item.amount }}</v-list-tile-content>
-              </v-list-tile>
-            </v-list>
-          </v-card>
-        </v-flex>
-      </v-data-iterator>
-    </v-container>
+        </td>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
@@ -65,10 +51,12 @@ export default {
       {
         data : this.$store.state.invoices.invoices,
         filter : "",
-        rowsPerPageItems: [4, 8, 12],
-        pagination: {
-          rowsPerPage: 4
-        },
+        headers: [
+        { text: 'No#', value: 'no', sortable: false },
+        { text: 'Description', value: 'description', sortable: false },
+        { text: 'Date', value: 'date', sortable: false },
+        { text: 'Amount', value: 'amount', sortable: false },
+      ],
       }
     }
   },
@@ -84,6 +72,7 @@ export default {
     },
     filterByNumber: _.debounce(function() {
       console.log(this.invoices.filter)
+      console.log(this.$store.state.invoices.invoices.length)
       if(this.invoices.filter !== '')
       {
         this.invoices.data = this.$store.state.invoices.invoices.filter((value) => value.number === parseInt(this.invoices.filter))
