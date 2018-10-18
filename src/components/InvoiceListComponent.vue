@@ -14,7 +14,6 @@
     <v-data-table
       :headers="invoices.headers"
       :items="invoices.data"
-      :total-items="invoices.pagination.totalItems"
       :rows-per-page-items="invoices.rowsPerPageItems" 
       :pagination.sync="invoices.pagination">
       <template slot="items" slot-scope="props">
