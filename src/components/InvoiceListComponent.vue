@@ -14,8 +14,9 @@
     <v-data-table
       :headers="invoices.headers"
       :items="invoices.data"
-      hide-actions
-      class="elevation-1">
+      :total-items="invoices.pagination.totalItems"
+      :rows-per-page-items="invoices.rowsPerPageItems" 
+      :pagination.sync="invoices.pagination">
       <template slot="items" slot-scope="props">
         <td>{{ props.item.number }}</td>
         <td>{{ props.item.description }}</td>
@@ -50,6 +51,11 @@ export default {
       invoices:
       {
         data : this.$store.state.invoices.invoices,
+        rowsPerPageItems: [5, 10, 15],
+        pagination: {
+          page: 1,
+          rowsPerPage: 5,
+        },
         filter : "",
         headers: [
         { text: 'No#', value: 'no', sortable: false },
@@ -58,6 +64,13 @@ export default {
         { text: 'Amount', value: 'amount', sortable: false },
       ],
       }
+    }
+  },
+  computed:
+  {
+    totalItems()
+    {
+      return this.invoices.data.length
     }
   },
   methods:
@@ -81,6 +94,7 @@ export default {
       {
         this.invoices.data = this.$store.state.invoices.invoices
       }
+      this.invoices.pagination.page = 1
     }, 300),
     resetFilter()
     {
