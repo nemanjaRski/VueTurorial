@@ -1,6 +1,7 @@
 <template>
   <div class="login">
-    <img src="../assets/LoginIcon.jpg">
+    <HeaderComponent/>
+    <img src="../assets/login.png"/>
     <br/>
     <v-flex xs12 sm4 offset-sm4>
         <v-text-field label="Username" type="text" v-model="input.username"/>
@@ -13,8 +14,12 @@
 </template>
 
 <script>
+import HeaderComponent from './HeaderComponent'
 export default {
   name: 'LoginComponent',
+  components: {
+      HeaderComponent
+  },
   data() {
       return {
           input: {
@@ -36,7 +41,7 @@ export default {
               username : this.input.username,
               password : this.input.password
             }
-            if(this.$store.getters.userExists(user)){
+            if(this.$store.getters.checkUsernamPassword(user)){
                 this.$store.commit('loginUser',user)
                 this.$router.push({ name: "MainPageComponent" });
             } else {
@@ -45,7 +50,7 @@ export default {
         } else {
             console.log("A username and password must be present");
         }
-    }
+    },
   },
 }
 </script>

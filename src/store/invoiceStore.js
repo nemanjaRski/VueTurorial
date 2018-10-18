@@ -1,3 +1,5 @@
+import moment from 'moment'
+
 const invoiceStore = {
     state: {
       invoices : []
@@ -20,7 +22,7 @@ const invoiceStore = {
         const duplicate = {
           number: Math.max.apply(Math, state.invoices.map(function(o) { return o.number; })) + 1,
           description: invoice.description,
-          date: invoice.date,
+          date: moment().format("YYYY-MM-DD").toString(),
           amount: invoice.amount
         }
         state.invoices.push(duplicate)
@@ -28,4 +30,4 @@ const invoiceStore = {
     }
   }
 
-  export default invoiceStore
+export default invoiceStore

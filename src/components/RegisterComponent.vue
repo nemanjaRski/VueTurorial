@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <HeaderComponent/>
     <img src="../assets/register.png">
     <br/>
      <v-flex xs12 sm4 offset-sm4>
@@ -16,8 +17,12 @@
 </template>
 
 <script>
+import HeaderComponent from './HeaderComponent'
 export default {
   name: 'RegisterComponent',
+  components:{
+    HeaderComponent
+  },
   data() {
       return {
           input: {
@@ -41,8 +46,14 @@ export default {
               username : this.input.username,
               password : this.input.password
             }
-            this.$store.commit('registerUser',user)
-            this.$router.push({ name: "LoginComponent" });
+            if(!this.$store.getters.userExists(user))
+            {
+              this.$store.commit('registerUser',user)
+              this.$router.push({ name: "LoginComponent" });
+            } else
+            {
+              console.log("Username already exists")
+            }
           } else {
             console.log("Passwords must match")
           }

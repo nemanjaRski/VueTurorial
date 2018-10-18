@@ -3,10 +3,16 @@ const userBase = {
         users: [{ username: 'manas', password: 'manas' }]
     },
     getters: {
-      userExists(state)
+      checkUsernamPassword(state)
       {
         return user => state.users.filter(
           (value) => value.username === user.username && value.password === user.password
+        ).length !== 0
+      },
+      userExists(state)
+      {
+        return user => state.users.filter(
+          (value) => value.username === user.username
         ).length !== 0
       }
     },

@@ -6,6 +6,10 @@ const session = {
     loginUser(state, user)
     {
       state.users.push(user)
+    },
+    logoutUser(state, user)
+    {
+      state.users = []
     }
   },
 }
