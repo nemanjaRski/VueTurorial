@@ -3,12 +3,15 @@ import moment from 'moment'
 const invoiceStore = {
     state: {
       invoices : [],
-      id : 0
+      id : 0,
     },
     getters:
     {
       getId: state => {
         return state.id
+      },
+      getFilteredInvoices: (state) => (filter) => {
+        return state.invoices.filter((value) => (value.number).includes(filter))
       }
     },
     mutations: {
@@ -17,7 +20,7 @@ const invoiceStore = {
           return element.number === invoice.number
         }).length === 0)
         {
-          state.invoices.push(invoice)
+          state.invoices.splice(state.invoices.length-1,1,invoice)
           ++state.id
         }
       },

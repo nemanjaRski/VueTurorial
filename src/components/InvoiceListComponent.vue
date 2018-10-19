@@ -72,26 +72,21 @@ export default {
     duplicateInvoice(invoice)
     {
       this.$store.commit('duplicateInvoice', invoice)
+      this.resetFilter()
     },
     deleteInvoice(invoice)
     {
       this.$store.commit('deleteInvoice', invoice)
+      this.resetFilter()
     },
     filterByNumber: _.debounce(function() {
-      if(this.invoices.filter !== '')
-      {
-        this.invoices.data = this.$store.state.invoices.invoices.filter((value) => (value.number).includes(this.invoices.filter))
-      }
-      else
-      {
-        this.invoices.data = this.$store.state.invoices.invoices
-      }
+      this.invoices.data = this.$store.getters.getFilteredInvoices(this.invoices.filter)
       this.invoices.pagination.page = 1
     }, 300),
     resetFilter()
     {
       this.invoices.filter = ""
-      this.invoices.data = this.$store.state.invoices.invoices
+      this.invoices.data = this.$store.getters.getFilteredInvoices(this.invoices.filter)
     }
   }
 }
