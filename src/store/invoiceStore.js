@@ -2,7 +2,14 @@ import moment from 'moment'
 
 const invoiceStore = {
     state: {
-      invoices : []
+      invoices : [],
+      id : 0
+    },
+    getters:
+    {
+      getId: state => {
+        return state.id
+      }
     },
     mutations: {
       addinvoice(state, invoice){
@@ -11,16 +18,18 @@ const invoiceStore = {
         }).length === 0)
         {
           state.invoices.push(invoice)
+          ++state.id
         }
       },
-      deleteInvoice(state, index)
+      deleteInvoice(state, invoice)
       {
-        state.invoices.splice(index,1)
+        state.invoices.splice(state.invoices.findIndex((value) => value.number === invoice.number),1)
       },
       duplicateInvoice(state, invoice)
       {
         const duplicate = {
-          number: Math.max.apply(Math, state.invoices.map(function(o) { return o.number; })) + 1,
+          id: ++state.id,
+          number:  Math.random().toString(36).substring(2, 5) + Math.random().toString(36).substring(2, 6),
           description: invoice.description,
           date: moment().format("YYYY-MM-DD").toString(),
           amount: invoice.amount

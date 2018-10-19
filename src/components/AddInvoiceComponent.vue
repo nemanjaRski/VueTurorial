@@ -2,7 +2,7 @@
   <div class="mainpage">
     <h1>Create invoice:</h1>
      <v-flex xs12 sm4 offset-sm4>
-        <v-text-field label="Number" type="number" min="1" v-model="input.number"/>
+        <v-text-field label="Number" type="text" v-model="input.number"/>
     </v-flex>
      <v-flex xs12 sm4 offset-sm4>
         <v-text-field label="Description" type="text" v-model="input.description"/>
@@ -59,7 +59,7 @@ export default {
     isValidInput: function()
     {
       const errorsOutput = []
-      if(this.input.number === '' || parseInt(this.input.number) <= 0)
+      if(this.input.number === '')
       {
         errorsOutput.push("Invalid entry in number field")
       }
@@ -86,13 +86,13 @@ export default {
       if(this.isValidInput)
       {
         const obj =  {
-          number : parseInt(this.input.number),
+          id : this.$store.getters.getId + 1,
+          number : this.input.number,
           description : this.input.description,
           date : this.input.date,
           amount : parseFloat(this.input.amount)
         }
         this.$store.commit('addinvoice', obj)
-
       } else {
         console.log('Invalid input')
       }

@@ -5,7 +5,7 @@
     <br/>
     <v-layout row wrap justify-center>
       <v-flex xs3 sm4>
-        <v-text-field label="Filter by number" type="number" min="1" v-model="invoices.filter"/>
+        <v-text-field label="Filter by number" type="text" v-model="invoices.filter"/>
       </v-flex>
     </v-layout>
     <v-btn v-on:click="filterByNumber()">Filter</v-btn>
@@ -17,6 +17,7 @@
       :rows-per-page-items="invoices.rowsPerPageItems" 
       :pagination.sync="invoices.pagination">
       <template slot="items" slot-scope="props">
+        <td>{{ props.item.id }}</td>
         <td>{{ props.item.number }}</td>
         <td>{{ props.item.description }}</td>
         <td>{{ props.item.date }}</td>
@@ -30,7 +31,7 @@
                 <v-list-tile v-on:click=duplicateInvoice(props.item)>
                 <v-list-tile-title>Duplicate</v-list-tile-title>
                 </v-list-tile>
-                <v-list-tile v-on:click="deleteInvoice(props.item.index)">
+                <v-list-tile v-on:click="deleteInvoice(props.item)">
                 <v-list-tile-title>Delete</v-list-tile-title>
                 </v-list-tile>
               </v-list>
@@ -57,7 +58,8 @@ export default {
         },
         filter : "",
         headers: [
-        { text: 'No#', value: 'no', sortable: false },
+        { text: '#', value: '#', sortable: false },
+        { text: 'Number', value: 'number', sortable: false },
         { text: 'Description', value: 'description', sortable: false },
         { text: 'Date', value: 'date', sortable: false },
         { text: 'Amount', value: 'amount', sortable: false },
@@ -71,14 +73,14 @@ export default {
     {
       this.$store.commit('duplicateInvoice', invoice)
     },
-    deleteInvoice(index)
+    deleteInvoice(invoice)
     {
-      this.$store.commit('deleteInvoice', index)
+      this.$store.commit('deleteInvoice', invoice)
     },
     filterByNumber: _.debounce(function() {
       if(this.invoices.filter !== '')
       {
-        this.invoices.data = this.$store.state.invoices.invoices.filter((value) => (value.number+'').includes(this.invoices.filter+''))
+        this.invoices.data = this.$store.state.invoices.invoices.filter((value) => (value.number).includes(this.invoices.filter))
       }
       else
       {
